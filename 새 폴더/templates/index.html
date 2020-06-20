@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <!-- Webpage Title -->
+  <title>Youtube Shuffle</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- CSS -->
+
+  <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- 
+  <meta property="og:url" content="http://findmyinterior.shop/">
+  <meta property="og:title" content=" 여러가구 한눈에 보기 ">
+  <meta name="og:description" content=" 가구찾기 --------첫홈페이지 JH~~~~~~~~~~~~~~~~~ ">
+  <meta property="og:image" content="https://i.pinimg.com/originals/a2/56/b1/a256b1a325a6af0f2f76c48180f9193a.jpg"> -->
+
+
+
+  <script type="text/javascript">
+    // $(function () {
+    //   $(".box").draggable();
+    // });
+
+    // function goToInfo() {
+    //   let selected_one = $('#something').val();
+    //   let counted_one = $('#pre_count').val();
+
+    //   if (selected_one == 'none') {
+    //     alert('가구를 선택하세요.');
+    //     return;
+    //   }
+    //   if (counted_one == '') {
+    //     alert('숫자를 입력하세요!!')
+    //     return;
+    //   }
+
+    //   localStorage.setItem('pre_selected', selected_one);
+    //   localStorage.setItem('pre_counted', counted_one);
+    //   window.location.href = '/info';
+    // }
+
+
+    function goTorandom() {
+      window.location.href = '/rand';
+    }
+
+    function okgood() {
+      alert(textHtml)
+      alert("!!s")
+
+    }
+    // function close() {
+    //   var new_popup =  window.open('http://www.daum.net ', '_blank');
+    //   new_popup.close();
+    // }
+    function selectValue() {
+      var requestValue = document.getElementById("Name").value;                   // 전송 파라미터 값
+      var theURL = 'http://www.daum.net '; // 전송 URL
+      // 호출 한 부모 페이지에서 URL 호출
+      opener.window.location = url;
+      // 호출 한 뒤 현재 팝업 창 닫기 이벤트
+      close();
+    }
+
+    function goToInfo() {
+      window.open('http://www.daum.net ', '_blank');
+      setTimeout(close(), 5000)
+    }
+
+    function closeWindow() {
+      setTimeout(function () {
+        window.close();
+      }, 4000);
+    }
+
+    function goPopup() {
+
+      // 팝업 창 로드 (window.open)
+      var opend = window.open('http://www.daum.net ', "Example", "scrollbars=no,width=900,height=500,menubar=false");
+      // window.open(URL,"팝업 구분값(팝업 1개일 경우 상관없음)","팝업 창 옵션")
+      setTimeout(function () {
+        opend.close();
+      }, 4000);
+    }
+
+
+    function check_time() {
+
+
+      var links = document.getElementsByTagName('a'), hrefs = [];
+      for (var i = 0; i < links.length; i++) {
+        hrefs.push(links[i].href);
+      }
+      start_times = [];
+      // 몇초에 시작하는지 알아보는 반복문!
+      for (let i = 0; i < hrefs.length; i++) {
+        var sksnrl = hrefs[i];
+        var sms = sksnrl.split("=");
+        var times = sms.pop();
+        var start_time = times.replace(/[a-z]/gi, "");
+        console.log(start_time)
+        console.log(typeof start_time)
+        start_times.push(start_time);
+      }
+      console.log(start_times);
+
+      // 사이에 있는 시간 구하기.
+      intervals = [];
+      for (let i = 0; i < start_times.length; i++) {
+        if (i - 1 == start_times.length - 2) {
+          interval = 180;
+          intervals.push(interval)
+          break;
+        }
+        var interval = start_times[i + 1] - start_times[i]
+        intervals.push(interval)
+
+      }
+      console.log(intervals);
+
+    }
+
+
+
+    function get_data_and_open() {
+
+      var links = document.getElementsByTagName('a'), hrefs = [];
+      for (var i = 0; i < links.length; i++) {
+        hrefs.push(links[i].href);
+      }
+      check_time();
+
+      function goTo() {
+        for (let i = 0; i < hrefs.length; i++) {
+
+          // 팝업 창 로드 (window.open) 지금은 팝업창 형태
+          var opend = window.open(hrefs[i], "Example", "scrollbars=no,width=900,height=500,menubar=false");
+          // window.open(URL,"팝업 구분값(팝업 1개일 경우 상관없음)","팝업 창 옵션")
+          setTimeout(function () {
+            opend.close();
+          }, 4000);
+        }
+      }
+    }
+
+
+
+
+
+
+  // var sksnrl = "https://www.youtube.com/watch?v=-3LugpXuG-g&t=1s";
+  // var sms = sksnrl.split("=");
+  // var times = sms.pop();
+  // var start_time = times.replace(/[a-z]/gi,"");
+
+// 이러면 이제 시간초만 빼서 구한거!!!!!!!!!!!!
+
+
+
+//   var links = document.getElementsByTagName('a'), hrefs = [];
+// for ( var i = 0 ; i <links.length; i++) { 
+// hrefs.push(links[i].href);
+// }
+
+
+
+
+  </script>
+
+
+  <!-- style -->
+  <style type="text/css">
+    .some {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      margin: 5px;
+    }
+
+    #btn_group button {
+      border: 1px solid skyblue;
+      background-color: rgba(8, 142, 252, 0);
+      color: rgb(44, 168, 218);
+      padding: 5px;
+    }
+
+    #btn_group button:hover {
+      color: white;
+      background-color: rgb(82, 14, 241);
+    }
+
+    #go1 {
+      margin: 10px;
+    }
+
+    #go2 {
+      margin: 50px;
+      width: 200px;
+      height: 50px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+
+
+  <h1>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+    셔플되는거 만들기 <br>
+
+  </h1>
+
+
+  <div>
+    <div id='textHtml1' name="textHtml1" style='width:400px;height:200px;border:solid 1px gray' contentEditable='true'>
+      본문 랜덤재생</div>
+    <input type='submit' value='submit' onclick="okgood();">
+  </div>
+  <div>
+    <div id='textHtml2' name="textHtml2" style='width:400px;height:200px;border:solid 1px gray' contentEditable='true'>
+      댓글 랜덤재생 </div> <br />
+    <input type='submit' value='submit' onclick="okgood();">
+  </div>
+
+
+
+
+  <button name="forwardBtn" id="go1" onclick="goPopup();">찾으러가기</button>
+  <button name="forwardBtn" id="go2" onclick="get_data_and_open();">그냥둘러보기</button>
+
+
+</body>
+
+</html>
