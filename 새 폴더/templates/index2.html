@@ -184,7 +184,7 @@
     }
 
     // 위 함수와 연결하기
-    function get_data_and_open(time_dict) {
+    function get_data_and_open1(time_dict) {
 
       var get_hrefs = check_time(time_dict);
       console.log("*" * 40);
@@ -212,7 +212,6 @@
 
       var times = [];
       // 반복문을 통해 
-      test = function () {
       for (let index = 0; index < array_test.length; index++) {
         console.log(array_test[index][0]);
         console.log(array_test[index][1]);
@@ -222,16 +221,6 @@
         //여기를 동기방식으로 바꾸어야한다!!!!!!!!!!!!!!!!!!!!!!!
         //       var opend = window.open(array_test[index][0], "Example", "scrollbars=no,width=900,height=500,menubar=false");
         // window.open(URL,"팝업 구분값(팝업 1개일 경우 상관없음)","팝업 창 옵션")
-        (function (x) {
-         setTimeout(function() {
-          window.open(array_test[x][0], "Example", "scrollbars=no,width=900,height=500,menubar=false");
-         }, 3000);
-         })(index); 
-        }
-      }
-      
-      
-      
       //  setInterval(() => {
       //    var opend = window.open(array_test[index][0], "Example", "scrollbars=no,width=900,height=500,menubar=false");
       //  }, 5000);
@@ -239,20 +228,9 @@
        
         // setTimeout(function () {
         //   opend.close();
-        // // }, 5000);
-        // console.log(index)
-      
-
-      // var n = 0;
-      // while ( n< 3) {
-      //   console.log(n);
-      //   n++;
-      // }
-      // var k = 0;
-      // do {
-      //   k++;
-      //   console.log(k);
-      // } while(k <5);
+        // }, 5000);
+        console.log(index)
+      }
 
     console.log(times);
 
@@ -319,7 +297,7 @@
       // 닫기버튼도 있으면 편하겠다?
 
 
-    
+    }
 
 
     // for (let i = 0, pending = Promise.resolve(); i < 3; i++) { // --- ①
@@ -337,7 +315,80 @@
     //       });
     //   console.log("pending", pending); //pending 값도 체크해보자.
     // }
-  }
+
+
+function get_data_and_open(time_dict){ (function () {
+    var get_hrefs = check_time(time_dict);
+      console.log("*" * 40);
+      console.log(get_hrefs)
+      var get_keys = Object.keys(get_hrefs);
+      console.log(get_keys);
+
+
+      //딕셔너리를 배열로 바꿔주고, 셔플하는 것
+      console.log(Object.entries(get_hrefs));
+      var array_test = Object.entries(get_hrefs);
+      array_test.shuffle();
+      console.log(array_test);
+
+    // Return random number from 0 to max - 1
+    function getRandomIdx(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+    // Next idx form array
+    function getNextIdx(idx, length) {
+        console.log(idx);
+        return (idx + 1)  % length;
+    }
+
+    // Play video (mock)
+    function playVideo(url) {
+        console.log('Play:', url);
+        objPopup = window.open(url, "Example", "scrollbars=no,width=900,height=500,menubar=false");
+    }
+
+    // Videos array
+    var videos = [{
+            url: "https://www.naver.com/",
+            sec: 7000
+        }, {
+            url: "https://www.daum.net/",
+            sec: 9000
+        }, {
+            url: "https://m.nate.com/",
+            sec: 6000
+        }],
+    idx = getRandomIdx(videos.length),
+    nextIdx = getNextIdx(idx, videos.length);
+
+    playVideo(videos[idx].url);
+
+    (function playLoop() {
+        setTimeout(function() {
+            playVideo(videos[nextIdx].url);
+
+            idx = nextIdx;
+            nextIdx = getNextIdx(idx, videos.length);
+            
+            playLoop();
+        }, videos[idx].sec);    
+    })();
+})();
+
+}
+
+function stopp(){
+    if(objPopup!= null) objPopup.close();
+
+
+
+    location.reload(true);
+}
+
+
+
+
 
   </script>
 
@@ -403,6 +454,9 @@
 
   <button name="forwardBtn" id="go1" onclick="goPopup();">새창띄우기</button>
   <button name="forwardBtn" id="go2" onclick="get_data_and_open();">그냥둘러보기</button>
+
+  <button name="forwardBtn" id="go3" onclick="stopp();">stop</button>
+
 
 </body>
 
