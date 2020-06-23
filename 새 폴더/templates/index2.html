@@ -25,29 +25,7 @@
 
 
   <script type="text/javascript">
-    // $(function () {
-    //   $(".box").draggable();
-    // });
-
-    // function goToInfo() {
-    //   let selected_one = $('#something').val();
-    //   let counted_one = $('#pre_count').val();
-
-    //   if (selected_one == 'none') {
-    //     alert('가구를 선택하세요.');
-    //     return;
-    //   }
-    //   if (counted_one == '') {
-    //     alert('숫자를 입력하세요!!')
-    //     return;
-    //   }
-
-    //   localStorage.setItem('pre_selected', selected_one);
-    //   localStorage.setItem('pre_counted', counted_one);
-    //   window.location.href = '/info';
-    // }
-
-
+ 
     function goTorandom() {
       window.location.href = '/rand';
     }
@@ -138,11 +116,11 @@
         var sms = sksnrl.split("=");
         var times = sms.pop();
         var start_time = times.replace(/[a-z]/gi, "");
-        console.log(start_time)
-        console.log(typeof start_time)
+        // console.log(start_time)
+        // console.log(typeof start_time)
         start_times.push(start_time);
       }
-      console.log(start_times);
+    //   console.log(start_times);
       //
       // 사이에 있는 시간 구하기.
       const intervals = [];
@@ -159,7 +137,7 @@
           return;
         }
       }
-      console.log(intervals);
+    //   console.log(intervals);
       //
       // 링크와 동영상 재생 시간 맞추기 
       var time_dict = {};
@@ -168,10 +146,10 @@
         time_dict[hrefs[j]] = intervals[j]
       }
       console.log(time_dict)
-      var keys = Object.keys(time_dict);
-      console.log(keys);
-      keys.shuffle()
-      console.log(keys);
+    //   var keys = Object.keys(time_dict);
+    //   console.log(keys);
+    //   keys.shuffle()
+    //   console.log(keys);
       //인덱스로 key값 가져오기
       // var first_key = Object.keys(obj)[0];
       //
@@ -328,8 +306,51 @@ function get_data_and_open(time_dict){ (function () {
       //딕셔너리를 배열로 바꿔주고, 셔플하는 것
       console.log(Object.entries(get_hrefs));
       var array_test = Object.entries(get_hrefs);
-      array_test.shuffle();
-      console.log(array_test);
+    //   array_test.shuffle();
+    //   console.log(array_test);
+
+    const intervals = [];
+      for (let i = 0; i < start_times.length; i++) {
+        if (i - 1 == start_times.length - 2) {
+          interval = 200;
+          intervals.push(interval + 5)
+          break;
+        }
+        var interval = start_times[i + 1] - start_times[i]
+        intervals.push(interval + 5)
+        if (interval < 5) {
+          alert('링크를 확인하여주세요.');
+          return;
+        }
+      }
+      console.log(intervals);
+
+
+    var test_dict = {};
+    var test_array = [];
+
+
+    for (let index = 0; index < array_test.length; index++) {
+        console.log(array_test[index][0]);
+        console.log(array_test[index][1]);
+        test_dict['url'] = array_test[index][0];
+        test_dict['sec'] = intervals[index];
+        // console.log(test_dict);
+        // console.log("ㅂㅈㄷㄱㅂㅈㄷㄱ");
+        test_array.push(test_dict);
+        // console.log(test_array)
+        // console.log("ㅋㅌㅊㅍㅋㅌㅍㅋㅊㅌㅍ");
+      }
+
+      console.log("asdfasdfasdfsadf456567567567");
+      console.log(test_dict);
+      console.log(test_array);
+      console.log("asdfasdfasdfsadf123123123123123")
+
+
+
+
+
 
     // Return random number from 0 to max - 1
     function getRandomIdx(max) {
@@ -344,8 +365,8 @@ function get_data_and_open(time_dict){ (function () {
 
     // Play video (mock)
     function playVideo(url) {
-        console.log('Play:', url);
-        objPopup = window.open(url, "Example", "scrollbars=no,width=900,height=500,menubar=false");
+        // console.log('Play:', url);
+        // objPopup = window.open(url, "Example", "scrollbars=no,width=900,height=500,menubar=false");
     }
 
     // Videos array
@@ -359,31 +380,35 @@ function get_data_and_open(time_dict){ (function () {
             url: "https://m.nate.com/",
             sec: 6000
         }],
-    idx = getRandomIdx(videos.length),
-    nextIdx = getNextIdx(idx, videos.length);
 
-    playVideo(videos[idx].url);
+    idx = getRandomIdx(test_array.length),
+    nextIdx = getNextIdx(idx, test_array.length);
+
+    playVideo(test_array[idx].url);
 
     (function playLoop() {
         setTimeout(function() {
-            playVideo(videos[nextIdx].url);
+            playVideo(test_array[nextIdx].url);
 
             idx = nextIdx;
-            nextIdx = getNextIdx(idx, videos.length);
+            nextIdx = getNextIdx(idx, test_array.length);
             
             playLoop();
-        }, videos[idx].sec);    
+        }, test_array[idx].sec * 100);    
     })();
 })();
 
 }
 
-function stopp(){
-    if(objPopup!= null) objPopup.close();
 
-
-
+function stopp(objPopup){
+    console.log(typeof objPopup)
+    if(typeof objPopup != undefined) {
+        if(objPopup!= null) objPopup.close();
     location.reload(true);
+    } else { 
+    location.reload(true);
+        }
 }
 
 
