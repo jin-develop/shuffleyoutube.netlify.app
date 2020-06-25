@@ -41,6 +41,8 @@
     // }
 
 
+
+
     function selectValue() {
       var requestValue = document.getElementById("Name").value;                   // 전송 파라미터 값
       var theURL = 'http://www.daum.net '; // 전송 URL
@@ -71,6 +73,7 @@
       }, 4000);
     }
 
+
     // 셔플하기 
     Array.prototype.shuffle = function () {
       var length = this.length;
@@ -99,6 +102,7 @@
       });
     }
 
+
     // 시간 계산해주는 함수 만들기
     function check_time() {
       const links = document.getElementsByTagName('a');
@@ -122,47 +126,55 @@
       }
     //   console.log(start_times);
       //
+
+
       // 사이에 있는 시간 구하기.
-      const intervals = [];
+      var intervals = [];
       for (let i = 0; i < start_times.length; i++) {
         if (i - 1 == start_times.length - 2) {
           interval = 200;
-          intervals.push(interval + 5)
+          intervals.push(interval + 8)
           break;
         }
         var interval = start_times[i + 1] - start_times[i]
-        intervals.push(interval + 5)
+        intervals.push(interval + 8)
         if (interval < 5) {
           alert('링크를 확인하여주세요.');
           return;
         }
       }
-    //   console.log(intervals);
-      //
-      // 링크와 동영상 재생 시간 맞추기 
+
+      var test_dicts = {};
+     var test_arrays = [];
+      for (let index = 0; index < hrefs.length; index++) {
+        
+        console.log(hrefs[index]);
+        console.log(intervals[index]);
+        var one_key = hrefs[index];
+        var one_value = intervals[index];
+        test_dicts['url'] = one_key;
+        test_dicts['sec'] = one_value;
+        test_arrays.push(test_dicts);
+        var test_dicts = {};
+        continue;
+        console.log(test_dicts)
+        console.log(test_arrays)
+      }
+      console.log(test_arrays)
+
       var time_dict = {};
+      var gogo_test = [];
       const start_times_key = [];
       for (let j = 0; j < hrefs.length; j++) {
         time_dict[hrefs[j]] = intervals[j]
       }
       console.log(time_dict)
-    //   var keys = Object.keys(time_dict);
-    //   console.log(keys);
-    //   keys.shuffle()
-    //   console.log(keys);
-      //인덱스로 key값 가져오기
-      // var first_key = Object.keys(obj)[0];
-      //
-      // 인덱스로 value 값 가져오기
-      var time_dict_value = time_dict[Object.keys(time_dict)[0]];
-      //
-      console.log(time_dict_value)
 
-      return time_dict;
+      return test_arrays;
     }
 
     // 위 함수와 연결하기
-    function get_data_and_open1(time_dict) {
+    function get_data_and_open3(time_dict) {
 
       var get_hrefs = check_time(time_dict);
       console.log("*" * 40);
@@ -213,22 +225,22 @@
     console.log(times);
 
 
-      for (let i = 0, pending = Promise.resolve(); i < 5; i++) { // --- ①
-        pending // --- ⑤
-          = pending // --- ⑥ 
-            .then(() => { // --- ②
-              return new Promise((resolve) => {
-                setTimeout(() => {
-                  resolve(i); // --- ③ 
-                  }, i * 1000);
-              });
-            })
-            .then((data) => { // ④
-              console.log(data);
-              console.log(times[i] + 'next');
-            });
-        console.log("pending", pending); //pending 값도 체크해보자.
-       }
+    //   for (let i = 0, pending = Promise.resolve(); i < 5; i++) { // --- ①
+    //     pending // --- ⑤
+    //       = pending // --- ⑥ 
+    //         .then(() => { // --- ②
+    //           return new Promise((resolve) => {
+    //             setTimeout(() => {
+    //               resolve(i); // --- ③ 
+    //               }, i * 1000);
+    //           });
+    //         })
+    //         .then((data) => { // ④
+    //           console.log(data);
+    //           console.log(times[i] + 'next');
+    //         });
+    //     console.log("pending", pending); //pending 값도 체크해보자.
+    //    }
 
 // for (let index = 0; index < array_test.length; index++) {
 //   const element = array[index];
@@ -278,82 +290,11 @@
     }
 
 
-    // for (let i = 0, pending = Promise.resolve(); i < 3; i++) { // --- ①
-    //   pending // --- ⑤
-    //     = pending // --- ⑥ 
-    //       .then(() => { // --- ②
-    //         return new Promise((resolve) => {
-    //           setTimeout(() => {
-    //             resolve(i); // --- ③ 
-    //           }, 1000);
-    //         });
-    //       })
-    //       .then((data) => { // ④
-    //         console.log(data);
-    //       });
-    //   console.log("pending", pending); //pending 값도 체크해보자.
-    // }
-
-
-function get_data_and_open(time_dict){ (function () {
-    var get_hrefs = check_time(time_dict);
-      console.log("*" * 40);
-      console.log(get_hrefs)
-      var get_keys = Object.keys(get_hrefs);
-      console.log(get_keys);
-
-
-      //딕셔너리를 배열로 바꿔주고, 셔플하는 것
-      console.log(Object.entries(get_hrefs));
-      var array_test = Object.entries(get_hrefs);
-    //   array_test.shuffle();
-    //   console.log(array_test);
-
-    var intervals = [];
-      for (let i = 0; i < start_times.length; i++) {
-        if (i - 1 == start_times.length - 2) {
-          interval = 200;
-          intervals.push(interval + 5)
-          break;
-        }
-        var interval = start_times[i + 1] - start_times[i]
-        intervals.push(interval + 5)
-        if (interval < 5) {
-          alert('링크를 확인하여주세요.');
-          return;
-        }
-      }
-      console.log(intervals);
-
-
-    var test_dict = {};
-    var test_array = [];
-
-
-    for (let index = 0; index < array_test.length; index++) {
-        console.log(array_test[index][0]);
-        console.log(array_test[index][1]);
-        test_dict['url'] = array_test[index][0];
-        test_dict['sec'] = intervals[index];
-       
-        // console.log(test_dict);
-        // console.log("ㅂㅈㄷㄱㅂㅈㄷㄱ");
-        test_array.push(test_dict);
-        continue;
-        console.log(test_dict)
-        console.log(test_array)
-        // console.log("ㅋㅌㅊㅍㅋㅌㅍㅋㅊㅌㅍ");
-      }
-
-      console.log("asdfasdfasdfsadf456567567567");
-      console.log(test_dict);
-      console.log(test_array);
-      console.log("asdfasdfasdfsadf123123123123123")
-
-
-
-
-
+function get_data_and_open(test_arrays){ (function () {
+   
+    var test_arrays = check_time(test_arrays);
+    var test_array = test_arrays.shuffle();
+  console.log(test_array)
 
     // Return random number from 0 to max - 1
     function getRandomIdx(max) {
@@ -369,20 +310,9 @@ function get_data_and_open(time_dict){ (function () {
     // Play video (mock)
     function playVideo(url) {
         console.log('Play:', url);
-        // objPopup = window.open(url, "Example", "scrollbars=no,width=900,height=500,menubar=false");
+        objPopup = window.open(url, "Example", "scrollbars=no,width=900,height=500,menubar=false");
     }
 
-    // Videos array
-    var videos = [{
-            url: "https://www.naver.com/",
-            sec: 7000
-        }, {
-            url: "https://www.daum.net/",
-            sec: 9000
-        }, {
-            url: "https://m.nate.com/",
-            sec: 6000
-        }],
 
     idx = getRandomIdx(test_array.length),
     nextIdx = getNextIdx(idx, test_array.length);
@@ -397,15 +327,12 @@ function get_data_and_open(time_dict){ (function () {
             nextIdx = getNextIdx(idx, test_array.length);
             
             playLoop();
-        }, test_array[idx].sec * 100);    
+        }, test_array[idx].sec * 1000);    
     })();
 })();
-
 }
 
-
 function stopp(objPopup){
-    console.log(typeof objPopup)
     if(typeof objPopup != undefined) {
         if(objPopup!= null) objPopup.close();
     location.reload(true);
