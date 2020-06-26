@@ -124,11 +124,15 @@
     // 시간 계산해주는 함수 만들기
     function check_time() {
       const links = document.getElementsByTagName('a');
-      var hrefs = [];
-      for (var i = 0; i < links.length; i++) {
-        hrefs.push(links[i].href);
+      var new_hrefs = [];
+      for (var i =1; i < links.length; i++) {
+        new_hrefs.push(links[i].href);
       }
-      console.log(hrefs)
+      console.log(new_hrefs);
+      var hrefs = [];
+      $.each(new_hrefs,function(i,value){
+    if(hrefs.indexOf(value) == -1 ) hrefs.push(value);
+});
 
 
       start_times = [];
